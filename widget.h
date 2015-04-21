@@ -18,6 +18,8 @@
 #include <QKeyEvent>
 #include <QPushButton>
 
+#include "alphabet.h"
+
 namespace Ui {
 class Widget;
 }
@@ -29,26 +31,37 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-    void InitAlphabet();
+
     void SetLabelFont(QLabel* l, int size);
     void setMyPalette();
-    void InitTranslation();
+    void InitLabels();
+    void restartAlphToPron();
+    void restartPronToAlph();
 protected:
     void keyPressEvent(QKeyEvent *key_event);
     void keyReleaseEvent(QKeyEvent *key_event);
 private slots:
     void restartApp();
+    void SetCharToPron();
+    void SetPronToChar();
 private:
     Ui::Widget *ui;
+
     QLabel* character;
     QLabel* message;
-    QLabel* translationCharacter;
+    QLabel* pronunciationCharacter;
+
     QVBoxLayout* qvb;
-    QString alphabet;
+
     QPalette* palette;
-    QVector<const char*> translation;
     QPushButton* restart;
     int randNum;
+
+    bool mode;
+    QPushButton* alph_pron;
+    QPushButton* pron_alph;
+
+    Alphabet* hiraAlph;
 };
 
 #endif // WIDGET_H
